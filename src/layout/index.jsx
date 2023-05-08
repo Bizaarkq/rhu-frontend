@@ -6,8 +6,7 @@ export default function Layout() {
   return (
     <>
       <Menu />
-      <Box sx={{ marginTop: 8 }}>
-        <br />
+      <Box sx={{ marginTop: 8, padding: 4 }}>
         <Outlet />
       </Box>
     </>
