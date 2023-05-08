@@ -12,9 +12,9 @@ import {
   Accordion,
   AccordionSummary,
   AccordionDetails,
-  Grid,
-  TextField,
   Button,
+  Snackbar,
+  Alert
 } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
@@ -24,16 +24,38 @@ import SaveIcon from "@mui/icons-material/Save";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import moment from "moment";
 import FormularioEmpleado from "../../../components/forms/empleado-form";
-import { Link, redirect } from "react-router-dom";
+import { Link, redirect, useNavigate } from "react-router-dom";
+import { useCallback, useState } from "react";
 
 export async function loader({ params }) {
   const response = await EmpleadoService.getOne(params.id);
   return { response };
 }
 
+
 export default function DetalleEmpleado() {
   const { response } = useLoaderData();
   const { accion, id } = useParams();
+  const navigate = useNavigate();
+
+  const updateEmpleado = useCallback(async (values) => {
+    const response = await EmpleadoService.update(id, values);
+    
+    if (response.ok) {
+      setUpdated(true);
+      navigate("/empleados");
+    }else{
+      setFailed(true);
+    }
+  }, [id]);
+
+  const [updated, setUpdated] = useState(false);
+  const [failed, setFailed] = useState(false);
+
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') return;
+    setUpdated(false);
+  };
 
   const {
     datos_personales: {
@@ -234,6 +256,7 @@ export default function DetalleEmpleado() {
             <Typography variant="h5" gutterBottom>
               Empleado: {codigo + " - " + nombres + " " + apellidos}
             </Typography>
+
             <FormularioEmpleado
               empleado={{
                 nombres,
@@ -257,16 +280,28 @@ export default function DetalleEmpleado() {
                 isss,
                 afp,
               }}
-              onSubmit={async (values) => {
-                console.log("onsubmit", values);
-                const response = await EmpleadoService.update(id, values);
-                if (response.status === 200) {
-                  router.push("/empleados");
-                }
-              }}
+              onSubmit={updateEmpleado}
               labelSubmit="Actualizar"
               iconSubmit={<SendIcon />}
             />
+            <Snackbar
+              open={updated}
+              autoHideDuration={6000}
+              onClose={handleClose}
+            >
+              <Alert onClose={handleClose} severity="success" sx={{ width: "100%" }}>
+                Empleado actualizado con éxito
+              </Alert>
+            </Snackbar>
+            <Snackbar
+              open={failed}
+              autoHideDuration={6000}
+              onClose={handleClose}
+            >
+              <Alert onClose={handleClose} severity="error" sx={{ width: "100%" }}>
+                Error al actualizar el empleado
+              </Alert>
+            </Snackbar>
           </>
         )}
 
@@ -307,42 +342,41 @@ const IncapacidadesEmpleado = ({ incapacidades }) => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {incapacidades.length > 0 && incapacidades.map((inc) => (
-                <TableRow key={inc._id}>
-                  <TableCell>
-                    {moment(inc.fecha).format("DD/MM/YYYY")}
-                  </TableCell>
-                  <TableCell>{inc.motivo}</TableCell>
-                  <TableCell>{inc.dias}</TableCell>
-                  <TableCell>
-                    <Typography
-                      variant="body1"
-                      style={{ overflowWrap: "anywhere" }}
-                    >
-                      {inc.observaciones}
-                    </Typography>
-                  </TableCell>
-                  <TableCell align="center">
-                    {inc.remunerado ? (
-                      <CheckCircleIcon color="success" />
-                    ) : (
-                      <CancelIcon color="error" />
-                    )}
-                  </TableCell>
-                </TableRow>
-              ))}
-
-              {
-                incapacidades.length === 0 && (
-                  <TableRow>
-                    <TableCell colSpan={5} align="center">
-                      <Typography variant="body1">
-                        No hay incapacidades registradas
+              {incapacidades.length > 0 &&
+                incapacidades.map((inc) => (
+                  <TableRow key={inc._id}>
+                    <TableCell>
+                      {moment(inc.fecha).format("DD/MM/YYYY")}
+                    </TableCell>
+                    <TableCell>{inc.motivo}</TableCell>
+                    <TableCell>{inc.dias}</TableCell>
+                    <TableCell>
+                      <Typography
+                        variant="body1"
+                        style={{ overflowWrap: "anywhere" }}
+                      >
+                        {inc.observaciones}
                       </Typography>
                     </TableCell>
+                    <TableCell align="center">
+                      {inc.remunerado ? (
+                        <CheckCircleIcon color="success" />
+                      ) : (
+                        <CancelIcon color="error" />
+                      )}
+                    </TableCell>
                   </TableRow>
-                )
-              }
+                ))}
+
+              {incapacidades.length === 0 && (
+                <TableRow>
+                  <TableCell colSpan={5} align="center">
+                    <Typography variant="body1">
+                      No hay incapacidades registradas
+                    </Typography>
+                  </TableCell>
+                </TableRow>
+              )}
             </TableBody>
           </Table>
         </TableContainer>
@@ -368,15 +402,16 @@ const AusenciasEmpleado = ({ ausencias }) => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {ausencias.length > 0 && ausencias.map((ausencia) => (
-                <TableRow key={ausencia._id}>
-                  <TableCell>
-                    {moment(ausencia.fecha).format("DD/MM/YYYY")}
-                  </TableCell>
-                  <TableCell>{ausencia.motivo}</TableCell>
-                  <TableCell>{ausencia.observaciones}</TableCell>
-                </TableRow>
-              ))}
+              {ausencias.length > 0 &&
+                ausencias.map((ausencia) => (
+                  <TableRow key={ausencia._id}>
+                    <TableCell>
+                      {moment(ausencia.fecha).format("DD/MM/YYYY")}
+                    </TableCell>
+                    <TableCell>{ausencia.motivo}</TableCell>
+                    <TableCell>{ausencia.observaciones}</TableCell>
+                  </TableRow>
+                ))}
 
               {ausencias.length === 0 && (
                 <TableRow>

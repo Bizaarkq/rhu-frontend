@@ -24,5 +24,6 @@ export const create = async (data) => {
 export default {
     getAll,
     getOne,
-    update
+    update,
+    create
 }
