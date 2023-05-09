@@ -1,7 +1,7 @@
 import { Grid, Paper, Typography } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { Link } from 'react-router-dom';
-import { MENU } from '../../services/constantes';
+import { MENU_PANEL as MENU } from '../../services/constantes';
 
 const Item = styled(Paper)(({ theme }) => ({
   ...theme.typography.body2,

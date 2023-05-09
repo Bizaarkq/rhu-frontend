@@ -4,6 +4,7 @@ import Inicio from '../views/inicio';
 import ListEmpleados from '../views/empleados/list';
 import DetalleEmpleado, {loader as empleadoLoader} from '../views/empleados/detalle';
 import NuevoEmpleado from '../views/empleados/detalle/crear-empleado';
+import IncapaList, {loader as incapaLoader} from '../views/incapacidades/list';
 
 import ErrorPage from '../views/error';
 
@@ -27,13 +28,22 @@ export default createBrowserRouter([
                 element: <ListEmpleados />,
             },
             {
-                path: 'empleados/:accion/:id',
+                path: '/empleados/:accion/:id',
                 element: <DetalleEmpleado />,
                 loader: empleadoLoader,
             },
             {
-                path: 'empleados/crear',
+                path: '/empleados/crear',
                 element: <NuevoEmpleado />,
+            },
+            {
+                path: '/incapacidades',
+                element: <IncapaList />,
+                loader: incapaLoader,
+            },
+            {
+                path: '*',
+                element: <ErrorPage />,
             }
         ]
     }
