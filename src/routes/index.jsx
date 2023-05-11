@@ -4,7 +4,7 @@ import Inicio from '../views/inicio';
 import ListEmpleados from '../views/empleados/list';
 import DetalleEmpleado, {loader as empleadoLoader} from '../views/empleados/detalle';
 import NuevoEmpleado from '../views/empleados/detalle/crear-empleado';
-import IncapaList, {loader as incapaLoader} from '../views/incapacidades/list';
+import IncapaList from '../views/incapacidades/list';
 
 import ErrorPage from '../views/error';
 
@@ -38,8 +38,7 @@ export default createBrowserRouter([
             },
             {
                 path: '/incapacidades',
-                element: <IncapaList />,
-                loader: incapaLoader,
+                element: <IncapaList />
             },
             {
                 path: '*',

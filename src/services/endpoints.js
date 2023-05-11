@@ -12,4 +12,7 @@ export const CATALOGOS = {
 
 export const INCAPACIDADES = {
     GET_INCAPACIDADES_EVENTOS: import.meta.env.VITE_URL_BACKEND + '/incapacidades/eventos',
+    CREATE_INCAPACIDAD: import.meta.env.VITE_URL_BACKEND + '/incapacidades/add',
+    UPDATE_INCAPACIDAD: import.meta.env.VITE_URL_BACKEND + '/incapacidades/edit',
+    DELETE_INCAPACIDAD: import.meta.env.VITE_URL_BACKEND + '/incapacidades/delete',
 }

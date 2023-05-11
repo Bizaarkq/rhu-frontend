@@ -1,3 +1,15 @@
 #root {
   height: 90vh;
 }
+
+.rbc-event-content{
+  font-family: "Roboto","Helvetica","Arial",sans-serif;
+}
+
+.rbc-toolbar-label{
+  font-family: "Roboto","Helvetica","Arial",sans-serif;
+}
+
+.rbc-header {
+  font-family: "Roboto","Helvetica","Arial",sans-serif;
+}

@@ -58,3 +58,16 @@ export const MENU_PANEL = [
         path: '/ausencias'
     }
 ]
+
+export const MESSAGE_CALENDAR = Object.freeze({
+    week: 'Semana',
+    work_week: 'Semana de trabajo',
+    day: 'Día',
+    month: 'Mes',
+    previous: 'Atrás',
+    next: 'Después',
+    today: 'Hoy',
+    agenda: 'El Diario',
+
+    showMore: (total) => `+${total} más`,
+});
