@@ -67,6 +67,7 @@ export default function ListEmpleados() {
           display: "flex",
           justifyContent: "space-between",
           marginBottom: "10px",
+          height: "100%",
         }}
       >
         <Typography variant="h5" gutterBottom>

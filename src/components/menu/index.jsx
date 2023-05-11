@@ -15,9 +15,9 @@ import {
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import Icon from "@mui/material/Icon";
-import CloseIcon from '@mui/icons-material/Close';
+import CloseIcon from "@mui/icons-material/Close";
 import { Link } from "react-router-dom";
-import {MENU} from "../../services/constantes";
+import { MENU } from "../../services/constantes";
 
 export default function Menu() {
   const [open, setOpen] = useState(false);
@@ -40,30 +40,31 @@ export default function Menu() {
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+          <Typography component={Link} to={"/"} variant="h6" sx={{ flexGrow: 1, textDecoration: "none", color: "white" }}>
             Propiedades Ultramar - RRHH
           </Typography>
         </Toolbar>
         <Drawer anchor="left" open={open} onClose={menuAbierto}>
-          <Box sx={{ marginLeft: 'auto' }}>
+          <Box sx={{ marginLeft: "auto" }}>
             <IconButton onClick={menuAbierto}>
               <CloseIcon />
             </IconButton>
           </Box>
-          <Divider />
           <List>
-            {
-              MENU.map((item) => {
-                return (
+            <Divider />
+            {MENU.map((item) => {
+              return (
+                <>
                   <ListItemButton key={item.id} component={Link} to={item.path}>
-                  <ListItemIcon>
-                    <Icon>{item.icon}</Icon>
-                  </ListItemIcon>
-                  <ListItemText primary={item.name} />
-                </ListItemButton>
-                )
-              })
-            }
+                    <ListItemIcon>
+                      <Icon>{item.icon}</Icon>
+                    </ListItemIcon>
+                    <ListItemText primary={item.name} />
+                  </ListItemButton>
+                  <Divider />
+                </>
+              );
+            })}
           </List>
         </Drawer>
       </AppBar>

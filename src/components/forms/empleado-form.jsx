@@ -33,7 +33,7 @@ const EmpleadoSchema = Yup.object().shape({
   }),
   datos_laborales: Yup.object().shape({
     cargo: Yup.object().nullable().shape({
-      value: Yup.string().required('El campo value es requerido'),
+      value: Yup.string().required('El campo plaza es requerido'),
       label: Yup.string()
     }).required("Requerido"),
     tipo_contrato: Yup.string().required("Requerido"),
