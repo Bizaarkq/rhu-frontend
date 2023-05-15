@@ -8,6 +8,7 @@ import DetalleIndemnizacion, {loader as indemnizacionLoader} from '../views/inde
 import NuevoEmpleado from '../views/empleados/detalle/crear-empleado';
 import NuevaIndemnizacion from '../views/indemnizaciones/detalle/crear-indemnizacion';
 import IncapaList from '../views/incapacidades/list';
+import Ausencias from '../views/ausencias';
 
 import ErrorPage from '../views/error';
 
@@ -55,6 +56,10 @@ export default createBrowserRouter([
             {
                 path: '/indeminizacion/crear',
                 element: <NuevaIndemnizacion />,
+            },
+            {
+                path: '/ausencias',
+                element: <Ausencias />
             },
             {
                 path: '*',
