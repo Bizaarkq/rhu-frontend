@@ -4,6 +4,7 @@ import Inicio from '../views/inicio';
 import ListEmpleados from '../views/empleados/list';
 import ListIndemnizaciones from '../views/indemnizaciones/list';
 import DetalleEmpleado, {loader as empleadoLoader} from '../views/empleados/detalle';
+import DetalleIndemnizacion, {loader as indemnizacionLoader} from '../views/indemnizaciones/detalle';
 import NuevoEmpleado from '../views/empleados/detalle/crear-empleado';
 import NuevaIndemnizacion from '../views/indemnizaciones/detalle/crear-indemnizacion';
 import IncapaList from '../views/incapacidades/list';
@@ -39,16 +40,21 @@ export default createBrowserRouter([
                 element: <NuevoEmpleado />,
             },
             {
-                path: '/indeminizacion/crear',
-                element: <NuevaIndemnizacion />,
-            },
-            {
                 path: '/incapacidades',
                 element: <IncapaList />
             },
             {
                 path: '/indemnizaciones',
                 element: <ListIndemnizaciones />,
+            },
+            {
+                path: '/indemnizaciones/:accion/:id',
+                element: <DetalleIndemnizacion />,
+                loader: indemnizacionLoader,
+            },
+            {
+                path: '/indeminizacion/crear',
+                element: <NuevaIndemnizacion />,
             },
             {
                 path: '*',

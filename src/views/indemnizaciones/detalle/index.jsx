@@ -1,5 +1,5 @@
 import { useLoaderData, useParams } from "react-router-dom";
-import EmpleadoService from "../../../services/empleados";
+import IndemnizacionService from "../../../services/indemnizaciones";
 import {
   Typography,
   TableContainer,
@@ -16,39 +16,21 @@ import {
   Snackbar,
   Alert
 } from "@mui/material";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import CheckCircleIcon from "@mui/icons-material/CheckCircle";
-import CancelIcon from "@mui/icons-material/Cancel";
-import SendIcon from "@mui/icons-material/Send";
-import SaveIcon from "@mui/icons-material/Save";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import moment from "moment";
-import FormularioEmpleado from "../../../components/forms/empleado-form";
 import { Link, redirect, useNavigate } from "react-router-dom";
 import { useCallback, useState } from "react";
 
 export async function loader({ params }) {
-  const response = await EmpleadoService.getOne(params.id);
+  const response = await IndemnizacionService.getOne(params.id);
   return { response };
 }
 
-
-export default function DetalleEmpleado() {
+export default function DetalleIndemnizacion() {
   const { response } = useLoaderData();
   const { accion, id } = useParams();
   const navigate = useNavigate();
-
-  const updateEmpleado = useCallback(async (values) => {
-    const response = await EmpleadoService.update(id, values);
-    
-    if (response.ok) {
-      setUpdated(true);
-      navigate("/empleados");
-    }else{
-      setFailed(true);
-    }
-  }, [id]);
-
+  console.log(response);
   const [updated, setUpdated] = useState(false);
   const [failed, setFailed] = useState(false);
 
@@ -58,30 +40,24 @@ export default function DetalleEmpleado() {
   };
 
   const {
-    datos_personales: {
-      nombres,
-      apellidos,
-      fecha_nacimiento,
-      sexo,
-      estado_civil,
-      nacionalidad,
-      dui,
-      direccion,
-      telefono,
-      correo,
+    empleado: {
+      codigo,
+      datos_personales: {
+        nombres,
+        apellidos,
+        dui,
+        direccion,
+        telefono,
+        correo,
+      },
+      datos_laborales: {
+        tipo_contrato,
+      },
     },
-    datos_laborales: {
-      fecha_ingreso,
-      cargo: { plaza, salario },
-      cargo,
-      tipo_contrato,
-    },
-    datos_bancarios: { banco, cuenta, tipo_cuenta },
-    datos_afiliacion: { afp, isss },
-    codigo,
-    ausencias,
-    incapacidades,
-  } = response.empleado;
+    fecha_contratacion,
+    fecha_finalizacion,
+    indemnizacion,
+  } = response.indemnizacion;
 
   return (
     <>
@@ -115,32 +91,6 @@ export default function DetalleEmpleado() {
                     </TableRow>
                   </TableHead>
                   <TableBody>
-                    <TableRow>
-                      <TableCell>Nombres</TableCell>
-                      <TableCell>{nombres}</TableCell>
-                    </TableRow>
-                    <TableRow>
-                      <TableCell>Apellidos</TableCell>
-                      <TableCell>{apellidos}</TableCell>
-                    </TableRow>
-                    <TableRow>
-                      <TableCell>Fecha de nacimiento</TableCell>
-                      <TableCell>
-                        {moment(fecha_nacimiento).format("DD/MM/YYYY")}
-                      </TableCell>
-                    </TableRow>
-                    <TableRow>
-                      <TableCell>Sexo</TableCell>
-                      <TableCell>{sexo}</TableCell>
-                    </TableRow>
-                    <TableRow>
-                      <TableCell>Estado civil</TableCell>
-                      <TableCell>{estado_civil}</TableCell>
-                    </TableRow>
-                    <TableRow>
-                      <TableCell>Nacionalidad</TableCell>
-                      <TableCell>{nacionalidad}</TableCell>
-                    </TableRow>
                     <TableRow>
                       <TableCell>DUI</TableCell>
                       <TableCell>{dui}</TableCell>
@@ -183,61 +133,46 @@ export default function DetalleEmpleado() {
                   </TableHead>
                   <TableBody>
                     <TableRow>
-                      <TableCell>Plaza</TableCell>
-                      <TableCell>{plaza}</TableCell>
-                    </TableRow>
-                    <TableRow>
-                      <TableCell>Salario</TableCell>
-                      <TableCell>
-                        {parseFloat(salario.$numberDecimal)}
-                      </TableCell>
-                    </TableRow>
-                    <TableRow>
                       <TableCell>Tipo de contrato</TableCell>
                       <TableCell>{tipo_contrato}</TableCell>
                     </TableRow>
-                    <TableRow>
-                      <TableCell>Fecha de contratación</TableCell>
-                      <TableCell>
-                        {moment(fecha_ingreso).format("DD/MM/YYYY")}
-                      </TableCell>
-                    </TableRow>
-                    <TableRow>
-                      <TableCell colSpan={2} align="center">
-                        <Typography variant="h6" gutterBottom>
-                          Datos Bancarios
-                        </Typography>
-                      </TableCell>
-                    </TableRow>
-                    <TableRow>
-                      <TableCell>Banco</TableCell>
-                      <TableCell>{banco}</TableCell>
-                    </TableRow>
-                    <TableRow>
-                      <TableCell>Cuenta</TableCell>
-                      <TableCell>{cuenta}</TableCell>
-                    </TableRow>
-                    <TableRow>
-                      <TableCell>Tipo de cuenta</TableCell>
-                      <TableCell>{tipo_cuenta}</TableCell>
-                    </TableRow>
+                  </TableBody>
+                </Table>
+              </TableContainer>
+              <TableContainer
+                style={{ flex: 1, marginRight: "10px" }}
+                sx={{ border: "1px solid gray", borderCollapse: "collapse" }}
+              >
+                <Table>
+                  <TableHead>
                     <TableRow>
                       <TableCell colSpan={2} align="center">
                         <Typography variant="h6" gutterBottom>
-                          ISSS y AFP
+                          Datos sobre Indemnizacion
                         </Typography>
                       </TableCell>
                     </TableRow>
+                  </TableHead>
+                  <TableBody>
                     <TableRow>
-                      <TableCell>ISSS</TableCell>
-                      <TableCell>{isss}</TableCell>
+                      <TableCell>Fecha contratación:</TableCell>
+                      <TableCell>{moment(fecha_contratacion).format('YYYY-MM-DD')}</TableCell>
                     </TableRow>
+                    {fecha_finalizacion && (
+                      <TableRow>
+                        <TableCell>Fecha de finalización de contrato:</TableCell>
+                        <TableCell>{moment(fecha_finalizacion).format('YYYY-MM-DD')}</TableCell>
+                      </TableRow>
+                    )}
                     <TableRow>
-                      <TableCell>AFP</TableCell>
+                      <TableCell>Indemnización correspondiente:</TableCell>
                       <TableCell>
-                        {afp
-                          ? afp.afiliacion + ": " + afp.numero
-                          : "No afiliado a AFP"}
+                        <Typography
+                          variant="body1"
+                          style={{ overflowWrap: "anywhere" }}
+                        >
+                          ${indemnizacion.$numberDecimal}
+                        </Typography>
                       </TableCell>
                     </TableRow>
                   </TableBody>
@@ -245,66 +180,8 @@ export default function DetalleEmpleado() {
               </TableContainer>
             </div>
             <br />
-            <br />
-            <IncapacidadesEmpleado incapacidades={incapacidades} />
-            <AusenciasEmpleado ausencias={ausencias} />
           </>
         )}
-
-        {accion === "editar" && (
-          <>
-            <Typography variant="h5" gutterBottom>
-              Empleado: {codigo + " - " + nombres + " " + apellidos}
-            </Typography>
-
-            <FormularioEmpleado
-              empleado={{
-                nombres,
-                apellidos,
-                fecha_nacimiento,
-                sexo,
-                estado_civil,
-                nacionalidad,
-                dui,
-                direccion,
-                telefono,
-                correo,
-                cargo,
-                plaza,
-                salario,
-                tipo_contrato,
-                fecha_ingreso,
-                banco,
-                cuenta,
-                tipo_cuenta,
-                isss,
-                afp,
-              }}
-              onSubmit={updateEmpleado}
-              labelSubmit="Actualizar"
-              iconSubmit={<SendIcon />}
-            />
-            <Snackbar
-              open={updated}
-              autoHideDuration={6000}
-              onClose={handleClose}
-            >
-              <Alert onClose={handleClose} severity="success" sx={{ width: "100%" }}>
-                Empleado actualizado con éxito
-              </Alert>
-            </Snackbar>
-            <Snackbar
-              open={failed}
-              autoHideDuration={6000}
-              onClose={handleClose}
-            >
-              <Alert onClose={handleClose} severity="error" sx={{ width: "100%" }}>
-                Error al actualizar el empleado
-              </Alert>
-            </Snackbar>
-          </>
-        )}
-
         {accion !== "editar" && accion !== "ver" && (
           <>
             <Typography variant="h6" gutterBottom>
@@ -322,110 +199,3 @@ export default function DetalleEmpleado() {
     </>
   );
 }
-
-const IncapacidadesEmpleado = ({ incapacidades }) => {
-  return (
-    <Accordion>
-      <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-        <Typography variant="h6">Incapacidades</Typography>
-      </AccordionSummary>
-      <AccordionDetails>
-        <TableContainer>
-          <Table>
-            <TableHead>
-              <TableRow>
-                <TableCell>Fecha</TableCell>
-                <TableCell>Motivo</TableCell>
-                <TableCell>Días</TableCell>
-                <TableCell>Comentarios</TableCell>
-                <TableCell>Remunerado</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {incapacidades.length > 0 &&
-                incapacidades.map((inc) => (
-                  <TableRow key={inc._id}>
-                    <TableCell>
-                      {moment(inc.fecha).format("DD/MM/YYYY")}
-                    </TableCell>
-                    <TableCell>{inc.motivo}</TableCell>
-                    <TableCell>{inc.dias}</TableCell>
-                    <TableCell>
-                      <Typography
-                        variant="body1"
-                        style={{ overflowWrap: "anywhere" }}
-                      >
-                        {inc.observaciones}
-                      </Typography>
-                    </TableCell>
-                    <TableCell align="center">
-                      {inc.remunerado ? (
-                        <CheckCircleIcon color="success" />
-                      ) : (
-                        <CancelIcon color="error" />
-                      )}
-                    </TableCell>
-                  </TableRow>
-                ))}
-
-              {incapacidades.length === 0 && (
-                <TableRow>
-                  <TableCell colSpan={5} align="center">
-                    <Typography variant="body1">
-                      No hay incapacidades registradas
-                    </Typography>
-                  </TableCell>
-                </TableRow>
-              )}
-            </TableBody>
-          </Table>
-        </TableContainer>
-      </AccordionDetails>
-    </Accordion>
-  );
-};
-
-const AusenciasEmpleado = ({ ausencias }) => {
-  return (
-    <Accordion>
-      <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-        <Typography variant="h6">Ausencias</Typography>
-      </AccordionSummary>
-      <AccordionDetails>
-        <TableContainer>
-          <Table>
-            <TableHead>
-              <TableRow>
-                <TableCell>Fecha</TableCell>
-                <TableCell>Motivo</TableCell>
-                <TableCell>Comentarios</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {ausencias.length > 0 &&
-                ausencias.map((ausencia) => (
-                  <TableRow key={ausencia._id}>
-                    <TableCell>
-                      {moment(ausencia.fecha).format("DD/MM/YYYY")}
-                    </TableCell>
-                    <TableCell>{ausencia.motivo}</TableCell>
-                    <TableCell>{ausencia.observaciones}</TableCell>
-                  </TableRow>
-                ))}
-
-              {ausencias.length === 0 && (
-                <TableRow>
-                  <TableCell colSpan={3} align="center">
-                    <Typography variant="body1">
-                      No hay ausencias registradas
-                    </Typography>
-                  </TableCell>
-                </TableRow>
-              )}
-            </TableBody>
-          </Table>
-        </TableContainer>
-      </AccordionDetails>
-    </Accordion>
-  );
-};
