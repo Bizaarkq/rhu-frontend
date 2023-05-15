@@ -17,6 +17,13 @@ export const INCAPACIDADES = {
     DELETE_INCAPACIDAD: import.meta.env.VITE_URL_BACKEND + '/incapacidades/delete',
 }
 
+export const AUSENCIAS = {
+    GET_AUSENCIAS_EVENTOS: import.meta.env.VITE_URL_BACKEND + '/ausencias/eventos',
+    CREATE_AUSENCIA: import.meta.env.VITE_URL_BACKEND + '/ausencias/add',
+    UPDATE_AUSENCIA: import.meta.env.VITE_URL_BACKEND + '/ausencias/edit',
+    DELETE_AUSENCIA: import.meta.env.VITE_URL_BACKEND + '/ausencias/delete',
+}
+
 export const INDEMNIZACIONES = {
     GET_INDEMNIZACIONES: import.meta.env.VITE_URL_BACKEND + '/indemnizaciones',
     CREATE_INDEMNIZACION: import.meta.env.VITE_URL_BACKEND + '/indemnizaciones/store',
