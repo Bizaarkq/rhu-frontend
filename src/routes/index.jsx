@@ -2,8 +2,10 @@ import { createBrowserRouter} from 'react-router-dom';
 import Layout from '../layout';
 import Inicio from '../views/inicio';
 import ListEmpleados from '../views/empleados/list';
+import ListIndemnizaciones from '../views/indemnizaciones/list';
 import DetalleEmpleado, {loader as empleadoLoader} from '../views/empleados/detalle';
 import NuevoEmpleado from '../views/empleados/detalle/crear-empleado';
+import NuevaIndemnizacion from '../views/indemnizaciones/detalle/crear-indemnizacion';
 import IncapaList from '../views/incapacidades/list';
 
 import ErrorPage from '../views/error';
@@ -37,8 +39,16 @@ export default createBrowserRouter([
                 element: <NuevoEmpleado />,
             },
             {
+                path: '/indeminizacion/crear',
+                element: <NuevaIndemnizacion />,
+            },
+            {
                 path: '/incapacidades',
                 element: <IncapaList />
+            },
+            {
+                path: '/indemnizaciones',
+                element: <ListIndemnizaciones />,
             },
             {
                 path: '*',

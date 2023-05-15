@@ -29,6 +29,12 @@ export const MENU = [
         name: 'Ausencias',
         icon: 'receipt_long',
         path: '/ausencias'
+    },
+    {
+        id: 5,
+        name: 'Indemnizaciones',
+        icon: 'receipt_long',
+        path: '/indemnizaciones'
     }
 ]
 
@@ -56,6 +62,12 @@ export const MENU_PANEL = [
         name: 'Ausencias',
         icon: 'receipt_long',
         path: '/ausencias'
+    },
+    {
+        id: 5,
+        name: 'Indemnizaciones',
+        icon: 'receipt_long',
+        path: '/indemnizaciones'
     }
 ]
 
