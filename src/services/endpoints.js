@@ -16,3 +16,8 @@ export const INCAPACIDADES = {
     UPDATE_INCAPACIDAD: import.meta.env.VITE_URL_BACKEND + '/incapacidades/edit',
     DELETE_INCAPACIDAD: import.meta.env.VITE_URL_BACKEND + '/incapacidades/delete',
 }
+
+export const INDEMNIZACIONES = {
+    GET_INDEMNIZACIONES: import.meta.env.VITE_URL_BACKEND + '/indemnizaciones',
+    CREATE_INDEMNIZACION: import.meta.env.VITE_URL_BACKEND + '/indemnizaciones/store',
+}
