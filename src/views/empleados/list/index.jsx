@@ -3,7 +3,7 @@ import DynamicTable from "../../../components/tables/dynamictable";
 import { useState, useEffect } from "react";
 import { Grid, Button, IconButton, Typography } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
-import { Link } from "react-router-dom";
+import { Link, useLoaderData } from "react-router-dom";
 
 const columns = [
   { id: "codigo", label: "Código", minWidth: 100 },
@@ -32,33 +32,24 @@ const actions = [
   },
 ];
 
+export async function loader() {
+  const response = await EmpleadoService.getAll();
+  const empleados = response.empleado.map((empleado) => {
+    return {
+      id: empleado._id,
+      codigo: empleado.codigo,
+      nombres: empleado.datos_personales.nombres,
+      apellidos: empleado.datos_personales.apellidos,
+      cargo: empleado.datos_laborales.cargo.plaza,
+      telefono: empleado.datos_personales.telefono,
+    };
+  });
+  return { empleados };
+}
+
 export default function ListEmpleados() {
-  const [empleados, setEmpleados] = useState([]);
+  const { empleados } = useLoaderData();
 
-  useEffect(() => {
-    retrieveEmpleados();
-  }, []);
-
-  const retrieveEmpleados = () => {
-    EmpleadoService.getAll()
-      .then((response) => {
-        setEmpleados(
-          response.empleado.map((empleado) => {
-            return {
-              id: empleado._id,
-              codigo: empleado.codigo,
-              nombres: empleado.datos_personales.nombres,
-              apellidos: empleado.datos_personales.apellidos,
-              cargo: empleado.datos_laborales.cargo.plaza,
-              telefono: empleado.datos_personales.telefono,
-            };
-          })
-        );
-      })
-      .catch((e) => {
-        console.log(e);
-      });
-  };
 
   return (
     <>
