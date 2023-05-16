@@ -1,7 +1,7 @@
 import { createBrowserRouter} from 'react-router-dom';
 import Layout from '../layout';
 import Inicio from '../views/inicio';
-import ListEmpleados from '../views/empleados/list';
+import ListEmpleados, { loader as empListLoader} from '../views/empleados/list';
 import ListIndemnizaciones from '../views/indemnizaciones/list';
 import DetalleEmpleado, {loader as empleadoLoader} from '../views/empleados/detalle';
 import DetalleIndemnizacion, {loader as indemnizacionLoader} from '../views/indemnizaciones/detalle';
@@ -30,6 +30,7 @@ export default createBrowserRouter([
             {
                 path: '/empleados',
                 element: <ListEmpleados />,
+                loader: empListLoader,
             },
             {
                 path: '/empleados/:accion/:id',
