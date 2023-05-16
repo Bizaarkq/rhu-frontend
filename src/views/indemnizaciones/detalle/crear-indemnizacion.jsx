@@ -5,7 +5,7 @@ import IndemnizacionesService from "../../../services/indemnizaciones";
 import { useNavigate } from "react-router-dom";
 import { useState, useCallback } from "react";
 
-export default function NuevoEmpleado() {
+export default function NuevaIndemnizacion() {
   const navigate = useNavigate();
   const [updated, setUpdated] = useState(false);
   const [failed, setFailed] = useState(false);
