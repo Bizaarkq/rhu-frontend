@@ -1,4 +1,4 @@
-import { EMPLEADOS } from "./endpoints";
+import { EMPLEADOS, BOLETA } from "./endpoints";
 import Axios from "axios";
 
 export const getAll = async () => {
@@ -7,7 +7,7 @@ export const getAll = async () => {
 }
 
 export const getOne = async (id) => {
-    const response = await Axios.get(EMPLEADOS.GET_EMPLEADOS + '/' + id);
+    const response = await Axios.get(EMPLEADOS.DETALLE_EMPLEADO + '/' + id);
     return response.data;
 }
 
@@ -21,9 +21,27 @@ export const create = async (data) => {
     return response.data;
 }
 
+export const boletas = async () => {
+    const response = await Axios.get(EMPLEADOS.BOLETAS_EMPLEADO);
+    return response.data;
+}
+
+export const generarBoletas = async () => {
+    const response = await Axios.post(BOLETA.GENERAR_BOLETA);
+    return response.data;
+}
+
+export const getBoleta = async (id_empleado, id_boleta) => {
+    const response = await Axios.get(EMPLEADOS.BOLETAS_EMPLEADO + '/' + id_empleado + '/' + id_boleta);
+    return response.data;
+}
+
 export default {
     getAll,
     getOne,
     update,
-    create
+    create,
+    boletas,
+    generarBoletas,
+    getBoleta
 }

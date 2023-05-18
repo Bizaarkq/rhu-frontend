@@ -35,6 +35,12 @@ export const MENU = [
         name: 'Indemnizaciones',
         icon: 'receipt_long',
         path: '/indemnizaciones'
+    },
+    {
+        id: 6,
+        name: 'Boletas de pago',
+        icon: 'receipt_long',
+        path: '/boletas'
     }
 ]
 
@@ -68,6 +74,12 @@ export const MENU_PANEL = [
         name: 'Indemnizaciones',
         icon: 'receipt_long',
         path: '/indemnizaciones'
+    },
+    {
+        id: 6,
+        name: 'Boletas de pago',
+        icon: 'receipt_long',
+        path: '/boletas'
     }
 ]
 
