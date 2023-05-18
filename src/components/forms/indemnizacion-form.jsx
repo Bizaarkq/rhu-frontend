@@ -8,9 +8,11 @@ import {
 import { Form, Formik, useFormik } from "formik";
 import * as Yup from "yup";
 import { useState, useEffect } from "react";
-import EmpleadoService from "../../services/empleados";
+import IndemnizacionService from "../../services/indemnizaciones";
+import moment from "moment";
 
 const IndemnizacionSchema = Yup.object({
+  fecha: Yup.date().required("Campo requerido"),
   empleado: Yup.object()
     .nullable()
     .shape({
@@ -26,7 +28,7 @@ export default function FormularioIndemnizacion({ indemnizacion = {}, onSubmit, 
   const [empleadoSelected, setEmpleadoSelected] = useState( indemnizacion.empleado || null);
 
   const fetchEmpleados = async () => {
-    const response = await EmpleadoService.getAll();
+    const response = await IndemnizacionService.getEmpleados();
     const empleadosMap = response.empleado.map((empleado) => {
       return {
         value: empleado._id,
@@ -44,6 +46,9 @@ export default function FormularioIndemnizacion({ indemnizacion = {}, onSubmit, 
   }, []);
 
   const initialValues = (indemnizacion) => ({
+    fecha: indemnizacion
+      ? moment(indemnizacion.fecha).format("YYYY-MM-DD")
+      : moment().format("YYYY-MM-DD"),
     empleado: empleadoSelected
   });
 
@@ -75,6 +80,7 @@ export default function FormularioIndemnizacion({ indemnizacion = {}, onSubmit, 
             {labelSubmit}
           </Button>
         </Grid>
+        <br />
         <Grid
           sx={{
             display: "flex",
@@ -110,6 +116,23 @@ export default function FormularioIndemnizacion({ indemnizacion = {}, onSubmit, 
                   <Typography variant="body2">{option.label}</Typography>
               </li>
             )}
+          />
+        </Grid>
+        <br />
+        <Grid item xs={6}>
+          <TextField
+            label="Fecha despido"
+            name="fecha"
+            type="date"
+            value={formik.values.fecha}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            error={formik.touched.fecha && Boolean(formik.errors.fecha)}
+            helperText={formik.touched.fecha && formik.errors.fecha}
+            fullWidth
+            InputLabelProps={{
+              shrink: true,
+            }}
           />
         </Grid>
       </Form>
