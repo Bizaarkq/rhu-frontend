@@ -16,8 +16,14 @@ export const create = async (data) => {
     return response.data;
 }
 
+export const getEmpleados = async () => {
+    const response = await Axios.get(INDEMNIZACIONES.GET_EMPLEADOS_ACTIVOS);
+    return response.data;
+}
+
 export default {
     getAll,
     getOne,
-    create
+    create,
+    getEmpleados
 }

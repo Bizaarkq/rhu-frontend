@@ -72,6 +72,10 @@ export default function DetalleIndemnizacion() {
         <br />
         {accion === "ver" && (
           <>
+            <Typography variant="h4" fontWeight="bold" gutterBottom>
+              Detalle indemnización
+            </Typography>
+            <br />
             <Typography variant="h5" gutterBottom>
               Empleado: {codigo + " - " + nombres + " " + apellidos}
             </Typography>
@@ -92,11 +96,11 @@ export default function DetalleIndemnizacion() {
                   </TableHead>
                   <TableBody>
                     <TableRow>
-                      <TableCell>DUI</TableCell>
+                      <TableCell>DUI:</TableCell>
                       <TableCell>{dui}</TableCell>
                     </TableRow>
                     <TableRow>
-                      <TableCell>Dirección</TableCell>
+                      <TableCell>Dirección:</TableCell>
                       <TableCell>
                         <Typography
                           variant="body1"
@@ -107,34 +111,12 @@ export default function DetalleIndemnizacion() {
                       </TableCell>
                     </TableRow>
                     <TableRow>
-                      <TableCell>Teléfono</TableCell>
+                      <TableCell>Teléfono:</TableCell>
                       <TableCell>{telefono}</TableCell>
                     </TableRow>
                     <TableRow>
-                      <TableCell>Correo</TableCell>
+                      <TableCell>Correo:</TableCell>
                       <TableCell>{correo}</TableCell>
-                    </TableRow>
-                  </TableBody>
-                </Table>
-              </TableContainer>
-              <TableContainer
-                style={{ flex: 1 }}
-                sx={{ border: "1px solid gray", borderCollapse: "collapse" }}
-              >
-                <Table>
-                  <TableHead>
-                    <TableRow>
-                      <TableCell colSpan={2} align="center">
-                        <Typography variant="h6" gutterBottom>
-                          Datos Laborales
-                        </Typography>
-                      </TableCell>
-                    </TableRow>
-                  </TableHead>
-                  <TableBody>
-                    <TableRow>
-                      <TableCell>Tipo de contrato</TableCell>
-                      <TableCell>{tipo_contrato}</TableCell>
                     </TableRow>
                   </TableBody>
                 </Table>
@@ -158,12 +140,10 @@ export default function DetalleIndemnizacion() {
                       <TableCell>Fecha contratación:</TableCell>
                       <TableCell>{moment(fecha_contratacion).format('YYYY-MM-DD')}</TableCell>
                     </TableRow>
-                    {fecha_finalizacion && (
-                      <TableRow>
-                        <TableCell>Fecha de finalización de contrato:</TableCell>
-                        <TableCell>{moment(fecha_finalizacion).format('YYYY-MM-DD')}</TableCell>
-                      </TableRow>
-                    )}
+                    <TableRow>
+                      <TableCell>Fecha de finalización de contrato:</TableCell>
+                      <TableCell>{moment(fecha_finalizacion).format('YYYY-MM-DD')}</TableCell>
+                    </TableRow>
                     <TableRow>
                       <TableCell>Indemnización correspondiente:</TableCell>
                       <TableCell>
@@ -174,6 +154,28 @@ export default function DetalleIndemnizacion() {
                           ${indemnizacion.$numberDecimal}
                         </Typography>
                       </TableCell>
+                    </TableRow>
+                  </TableBody>
+                </Table>
+              </TableContainer>
+              <TableContainer
+                style={{ flex: 1 }}
+                sx={{ border: "1px solid gray", borderCollapse: "collapse" }}
+              >
+                <Table>
+                  <TableHead>
+                    <TableRow>
+                      <TableCell colSpan={2} align="center">
+                        <Typography variant="h6" gutterBottom>
+                          Datos Laborales
+                        </Typography>
+                      </TableCell>
+                    </TableRow>
+                  </TableHead>
+                  <TableBody>
+                    <TableRow>
+                      <TableCell>Tipo de contrato:</TableCell>
+                      <TableCell>{tipo_contrato}</TableCell>
                     </TableRow>
                   </TableBody>
                 </Table>

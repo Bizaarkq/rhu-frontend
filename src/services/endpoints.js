@@ -29,6 +29,7 @@ export const AUSENCIAS = {
 export const INDEMNIZACIONES = {
     GET_INDEMNIZACIONES: import.meta.env.VITE_URL_BACKEND + '/indemnizaciones',
     CREATE_INDEMNIZACION: import.meta.env.VITE_URL_BACKEND + '/indemnizaciones/store',
+    GET_EMPLEADOS_ACTIVOS: import.meta.env.VITE_URL_BACKEND + '/indemnizaciones/empleados-activos',
 }
 
 export const BOLETA = {
