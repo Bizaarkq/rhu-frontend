@@ -1,9 +1,11 @@
 
 export const EMPLEADOS = {
     GET_EMPLEADOS: import.meta.env.VITE_URL_BACKEND + '/empleados',
+    DETALLE_EMPLEADO: import.meta.env.VITE_URL_BACKEND + '/empleados/detalle',
     UPDATE_EMPLEADO: import.meta.env.VITE_URL_BACKEND + '/empleados/update',
     CREATE_EMPLEADO: import.meta.env.VITE_URL_BACKEND + '/empleados/save',
     DELETE_EMPLEADO: import.meta.env.VITE_URL_BACKEND + '/empleados/despedir',
+    BOLETAS_EMPLEADO: import.meta.env.VITE_URL_BACKEND + '/empleados/boletas',
 }
 
 export const CATALOGOS = {
@@ -28,4 +30,8 @@ export const INDEMNIZACIONES = {
     GET_INDEMNIZACIONES: import.meta.env.VITE_URL_BACKEND + '/indemnizaciones',
     CREATE_INDEMNIZACION: import.meta.env.VITE_URL_BACKEND + '/indemnizaciones/store',
     GET_EMPLEADOS_ACTIVOS: import.meta.env.VITE_URL_BACKEND + '/indemnizaciones/empleados-activos',
+}
+
+export const BOLETA = {
+    GENERAR_BOLETA: import.meta.env.VITE_URL_BACKEND + '/boletas/generar',
 }
