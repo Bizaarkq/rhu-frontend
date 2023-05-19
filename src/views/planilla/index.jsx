@@ -18,7 +18,6 @@ import { Form, Formik, useFormik } from "formik";
 import * as Yup from "yup";
 import { MESES, QUINCENA } from "../../services/constantes";
 import moment from "moment";
-import _, { set } from "lodash";
 
 const columns = [
   { id: "codigo", label: "Código", minWidth: 100 },
