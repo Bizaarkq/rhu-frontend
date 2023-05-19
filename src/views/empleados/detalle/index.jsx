@@ -359,11 +359,11 @@ const IncapacidadesEmpleado = ({ incapacidades }) => {
                       </Typography>
                     </TableCell>
                     <TableCell align="center">
-                      {inc.remunerado ? (
+                      {inc.dias > 3 ? (inc.remunerado ? (
                         <CheckCircleIcon color="success" />
                       ) : (
                         <CancelIcon color="error" />
-                      )}
+                      )) : "---"}
                     </TableCell>
                   </TableRow>
                 ))}
