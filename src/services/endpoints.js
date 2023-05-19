@@ -35,3 +35,7 @@ export const INDEMNIZACIONES = {
 export const BOLETA = {
     GENERAR_BOLETA: import.meta.env.VITE_URL_BACKEND + '/boletas/generar',
 }
+
+export const NOMINA = {
+    GET_NOMINA: import.meta.env.VITE_URL_BACKEND + '/empleados/planilla/get',
+}

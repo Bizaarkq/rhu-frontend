@@ -28,7 +28,7 @@ export default function Inicio() {
             return (
               <Grid item xs={6} key={item.id}>
                 <Item component={Link} to={item.path}>
-                  <Typography variant="h7" align='center' component="div" sx={{ flexGrow: 1 }}>
+                  <Typography variant="h5" align='center' component="div" sx={{ flexGrow: 1 }}>
                     {item.name}
                   </Typography>
                 </Item>  

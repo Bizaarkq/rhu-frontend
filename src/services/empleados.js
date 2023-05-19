@@ -1,4 +1,4 @@
-import { EMPLEADOS, BOLETA } from "./endpoints";
+import { EMPLEADOS, BOLETA, NOMINA } from "./endpoints";
 import Axios from "axios";
 
 export const getAll = async () => {
@@ -26,13 +26,18 @@ export const boletas = async () => {
     return response.data;
 }
 
-export const generarBoletas = async () => {
-    const response = await Axios.post(BOLETA.GENERAR_BOLETA);
+export const generarBoletas = async (data) => {
+    const response = await Axios.post(BOLETA.GENERAR_BOLETA, data);
     return response.data;
 }
 
 export const getBoleta = async (id_empleado, id_boleta) => {
     const response = await Axios.get(EMPLEADOS.BOLETAS_EMPLEADO + '/' + id_empleado + '/' + id_boleta);
+    return response.data;
+}
+
+export const getPlanilla = async (mes, anio, quincena) => {
+    const response = await Axios.get(NOMINA.GET_NOMINA + '/' + anio + '/' + mes + '/' + quincena);
     return response.data;
 }
 
@@ -43,5 +48,6 @@ export default {
     create,
     boletas,
     generarBoletas,
-    getBoleta
+    getBoleta,
+    getPlanilla
 }
