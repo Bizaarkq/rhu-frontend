@@ -9,11 +9,16 @@ import {
   TableCell,
   TableBody,
   Paper,
+  Button,
+  Grid
 } from "@mui/material";
 import moment from "moment";
 
 export async function loader({ params }) {
-  const response = await EmpleadoService.getBoleta(params.id_empleado, params.id_boleta);
+  const response = await EmpleadoService.getBoleta(
+    params.id_empleado,
+    params.id_boleta
+  );
   return { response };
 }
 
@@ -21,12 +26,12 @@ export default function DetalleEmpleado() {
   const { response } = useLoaderData();
 
   const {
-    empleado : {
+    empleado: {
       codigo,
       datos_personales: { nombres, apellidos },
-      datos_laborales: { cargo: {
-        plaza, salario
-      }}
+      datos_laborales: {
+        cargo: { plaza, salario },
+      },
     },
     ...boleta
   } = response.boleta;
@@ -41,9 +46,20 @@ export default function DetalleEmpleado() {
           padding: 2,
         }}
       >
-        <Typography variant="h4" gutterBottom>
-          Comprobante de pago
-        </Typography>
+        <Grid sx={{ display: "flex", justifyContent: "space-between" }}>
+          <Typography variant="h4" gutterBottom>
+            Comprobante de pago
+          </Typography>
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={() => window.print()}
+            className="hidden-print"
+          >
+            Imprimir
+          </Button>
+        </Grid>
+
         <Typography variant="h6" gutterBottom>
           Empleado: {codigo + " - " + nombres + " " + apellidos}
         </Typography>
@@ -82,21 +98,22 @@ export default function DetalleEmpleado() {
                   <TableCell>{boleta.vacacion}</TableCell>
                 </TableRow>
                 <TableRow>
-                  <TableCell>Otros ingresos</TableCell>
-                  <TableCell>{boleta.otros_ingresos}</TableCell>
+                  <TableCell>Ingresos no gravados</TableCell>
+                  <TableCell>{boleta.ingresos_no_gravados}</TableCell>
                 </TableRow>
                 <TableRow>
                   <TableCell>Total devengado</TableCell>
-                  <TableCell>{
-                    (parseFloat(boleta.salario_quincenal )
-                    + parseFloat(boleta.incapacidad)
-                    + parseFloat(boleta.vacacion)
-                    + parseFloat(boleta.otros_ingresos)).toFixed(2)
-                  }</TableCell>
+                  <TableCell>
+                    {(
+                      parseFloat(boleta.salario_quincenal) +
+                      parseFloat(boleta.incapacidad) +
+                      parseFloat(boleta.vacacion) +
+                      parseFloat(boleta.otros_ingresos)
+                    ).toFixed(2)}
+                  </TableCell>
                 </TableRow>
               </TableBody>
             </Table>
-
           </TableContainer>
           <TableContainer
             style={{ flex: 1, marginRight: "10px" }}
@@ -135,12 +152,14 @@ export default function DetalleEmpleado() {
                 </TableRow>
                 <TableRow>
                   <TableCell>Total descuentos</TableCell>
-                  <TableCell>{
-                    (parseFloat(boleta.isss)
-                    + parseFloat(boleta.afp)
-                    + parseFloat(boleta.renta)
-                    + parseFloat(boleta.otros_descuentos)).toFixed(2)
-                  }</TableCell>
+                  <TableCell>
+                    {(
+                      parseFloat(boleta.isss) +
+                      parseFloat(boleta.afp) +
+                      parseFloat(boleta.renta) +
+                      parseFloat(boleta.otros_descuentos)
+                    ).toFixed(2)}
+                  </TableCell>
                 </TableRow>
               </TableBody>
             </Table>

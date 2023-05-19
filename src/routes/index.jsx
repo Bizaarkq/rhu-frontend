@@ -11,6 +11,7 @@ import IncapaList from '../views/incapacidades/list';
 import Ausencias from '../views/ausencias';
 import Boletas, { loader as boletaLoader} from '../views/boletas';
 import DetalleBoleta, { loader as detalleBoletaLoader} from '../views/boletas/detalle';
+import Planillas from '../views/planilla';
 
 import ErrorPage from '../views/error';
 
@@ -73,6 +74,10 @@ export default createBrowserRouter([
                 path: '/boletas/ver/:id_empleado/:id_boleta',
                 element: <DetalleBoleta />,
                 loader: detalleBoletaLoader,
+            },
+            {
+                path: '/planilla',
+                element: <Planillas />
             },
             {
                 path: '*',
