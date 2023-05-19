@@ -18,18 +18,17 @@ const EmpleadoSchema = Yup.object().shape({
     fecha_nacimiento: Yup.date().required("Requerido"),
     sexo: Yup.string().required("Requerido"),
     estado_civil: Yup.string().required("Requerido"),
-    nacionalidad: Yup.string().required("Requerido"),
+    nacionalidad: Yup.string(),
     dui: Yup.string()
       .matches(/^\d{8}-\d$/, "Escriba el DUI incluyendo el guión (-)")
       .required("Requerido"),
-    direccion: Yup.string().required("Requerido"),
-    telefono: Yup.string().required("Requerido"),
+    direccion: Yup.string(),
+    telefono: Yup.string(),
     correo: Yup.string()
       .matches(
         /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
         "Escriba un correo electrónico válido"
-      )
-      .required("Requerido"),
+      ),
   }),
   datos_laborales: Yup.object().shape({
     cargo: Yup.object().nullable().shape({
@@ -42,7 +41,7 @@ const EmpleadoSchema = Yup.object().shape({
   datos_bancarios: Yup.object().shape({
     banco: Yup.string().required("Requerido"),
     cuenta: Yup.string().required("Requerido"),
-    tipo_cuenta: Yup.string().required("Requerido"),
+    tipo_cuenta: Yup.string(),
   }),
   datos_afiliacion: Yup.object().shape({
     isss: Yup.string().required("Requerido"),
@@ -84,7 +83,7 @@ export default function FormularioEmpleado({ empleado = {}, onSubmit, labelSubmi
         moment(empleado.fecha_nacimiento).format("YYYY-MM-DD") || "",
       sexo: empleado.sexo || "",
       estado_civil: empleado.estado_civil || "",
-      nacionalidad: empleado.nacionalidad || "",
+      nacionalidad: empleado.nacionalidad || "Salvadoreño",
       dui: empleado.dui || "",
       direccion: empleado.direccion || "",
       telefono: empleado.telefono || "",
