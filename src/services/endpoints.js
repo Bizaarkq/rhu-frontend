@@ -38,4 +38,5 @@ export const BOLETA = {
 
 export const NOMINA = {
     GET_NOMINA: import.meta.env.VITE_URL_BACKEND + '/empleados/planilla/get',
+    DOWNLOAD_NOMINA: import.meta.env.VITE_URL_BACKEND + '/empleados/planilla/generar',
 }

@@ -87,6 +87,15 @@ export default function Planillas() {
     });
   };
 
+  const handleDownload = async () => {
+     EmpleadoService.downloadPlanilla(
+      mes,
+      year,
+      quincena
+    );
+    
+  };
+
   const initialValues = {
     mes: 0,
     year: 0,
@@ -186,6 +195,7 @@ export default function Planillas() {
           sizer="large"
           startIcon={<DownloadIcon />}
           sx={{ height: "100%" }}
+          onClick={handleDownload}
         >
           Descargar
         </Button>
